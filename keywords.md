@@ -16,7 +16,7 @@
 | # | Title | Primary Keyword | Content Type | Priority | สถานะ | Slug |
 |---|---|---|---|---|---|---|
 | 1 | AI Automation คืออะไร? และทำไมธุรกิจถึงต้องใช้ในปี 2025 | ai automation คืออะไร | Pillar Page | High | อัปโหลดแล้ว (Draft) | ai-automation-คืออะไร |
-| 2 | n8n คืออะไร? เครื่องมือ Automation ฟรีที่ดีที่สุดสำหรับ SME | n8n คืออะไร | Blog | High | pending | n8n-คืออะไร |
+| 2 | n8n คืออะไร? เครื่องมือ Automation ฟรีที่ดีที่สุดสำหรับ SME | n8n คืออะไร | Blog | High | อัปโหลดแล้ว (Draft) | n8n-คืออะไร |
 | 3 | Claude AI คืออะไร? เปรียบเทียบกับ ChatGPT ตัวไหนดีกว่า | claude ai | Blog | High | pending | claude-ai-คืออะไร |
 | 4 | 5 ระบบ AI Automation ที่ธุรกิจไทยใช้แล้วประหยัดเวลาได้จริง | ระบบ ai automation | Blog | High | pending | ระบบ-ai-automation |
 | 5 | AI Chatbot คืออะไร? วิธีติดตั้งบน LINE OA และ Facebook | ai chatbot คืออะไร | Blog | High | pending | ai-chatbot-คืออะไร |

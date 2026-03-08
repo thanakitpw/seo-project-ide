@@ -13,8 +13,8 @@ seo_score: 95
 tags: ["ai automation คืออะไร", "AI & Automation", "Pillar Page", "workflow automation", "RPA", "n8n", "Make.com"]
 author_name: "Best Solutions Corp"
 cover_image_url: null
-cover_image_prompt: "Wide-angle overhead view of glowing cyan-blue network nodes connected by light streams on deep navy background, central node larger and pulsing with AI brain symbol, surrounding nodes show workflow icons (email, document, notification), clean geometric composition, professional corporate style, no text"
-cover_image_concept: "เครือข่าย AI ที่เชื่อมต่อกัน แสดงการไหลของข้อมูลจาก workflow ต่างๆ เข้าสู่ศูนย์กลาง AI แล้วออกมาเป็นผลลัพธ์อัตโนมัติ สีน้ำเงินเข้ม (#1E3A5F) และ Cyan (#00B4D8)"
+cover_image_prompt: "Horizontal gradient background from deep crimson red (#8B0000) on left to deep navy blue (#0A1628) on right, glowing circuit board pattern overlay, central glowing AI brain node connected to workflow icons (email, spreadsheet, robot arm, notification) by neon cyan light streams, large bold Thai text overlay at top reading 'AI Automation คืออะไร?' in white with neon glow, below it smaller text 'Workflow Automation for Thai SME' in cyan (#00B4D8), dramatic neon lighting, digital particles, professional tech corporate style, 16:9 ratio, high quality"
+cover_image_concept: "กราเดียนต์แดงเข้มไปน้ำเงิน พร้อม AI brain เชื่อมต่อ workflow icons ด้วย neon cyan และข้อความชื่อบทความภาษาไทยบนภาพ"
 status: "uploaded-draft"
 ---
 
@@ -97,7 +97,7 @@ status: "uploaded-draft"
 
 ธุรกิจที่พึ่งพาการนัดหมายเป็นรายได้หลักจะรู้ดีว่า no-show แค่ 2–3 ครั้งต่อวันกระทบรายได้มากแค่ไหน นี่คือจุดที่ AI Automation เข้ามาช่วยได้ตรงที่สุด
 
-ระบบที่ทำได้จริง:
+ระบบที่ทำได้จริง
 - ส่ง reminder ก่อนวันนัด 24 ชั่วโมงและ 1 ชั่วโมงผ่าน LINE โดยอัตโนมัติ
 - ถ้าลูกค้าตอบว่ามาไม่ได้ ระบบเปิดสล็อตให้คนอื่นจองได้ทันที
 - หลังการรักษา ส่ง follow-up อัตโนมัติถามความพึงพอใจและแนะนำนัดถัดไปตามระยะเวลาที่เหมาะสม
@@ -161,19 +161,19 @@ status: "uploaded-draft"
 
 ### 4 ขั้นตอนเริ่มต้นใช้ AI Automation และข้อผิดพลาดที่ควรหลีกเลี่ยง
 
-**Step 1: ระบุงานที่ Automate ได้ก่อน**
+**Step 1 — ระบุงานที่ Automate ได้ก่อน**
 
 ก่อนจะเลือกเครื่องมือ ต้องรู้ก่อนว่าจะ automate อะไร วิธีที่ง่ายที่สุดคือใช้เวลา 1 สัปดาห์จดทุกงานที่คุณหรือทีมทำซ้ำมากกว่าสามครั้ง งานที่ดี automate ได้มักมีลักษณะ: ทำซ้ำ ใช้ข้อมูลจากแหล่งที่มีอยู่แล้ว มีกฎที่ชัดเจน และไม่ต้องใช้ judgment ซับซ้อน
 
-**Step 2: เลือกเครื่องมือให้เหมาะ**
+**Step 2 — เลือกเครื่องมือให้เหมาะ**
 
 อย่าเริ่มด้วยการเลือกเครื่องมือก่อน เพราะเครื่องมือที่ดีที่สุดคือเครื่องมือที่เหมาะกับงานและทีมของคุณ ถ้าทีมคุณไม่มี technical background เลย Make.com หรือ Zapier จะใช้งานได้ง่ายกว่า n8n อย่างมีนัยสำคัญ
 
-**Step 3: เริ่มจาก Workflow เล็กๆ ก่อน**
+**Step 3 — เริ่มจาก Workflow เล็กๆ ก่อน**
 
 อย่าพยายาม automate ทุกอย่างพร้อมกัน ให้เลือก 1 workflow ที่ pain point สูงสุดและทำทันที ตัวอย่างที่ดีสำหรับมือใหม่: เมื่อมีคนกรอกฟอร์มบนเว็บ ให้ส่งอีเมลต้อนรับอัตโนมัติ หรือเมื่อมีออเดอร์ใหม่ใน Shopee ให้แจ้งเตือนทีม via LINE
 
-**Step 4: วัดผลและขยายต่อ**
+**Step 4 — วัดผลและขยายต่อ**
 
 หลัง automate ครั้งแรก ให้วัดผลจริง: ประหยัดเวลาไปเท่าไหร่ต่อสัปดาห์? มี error เกิดขึ้นไหม? ข้อมูลเหล่านี้จะบอกว่า workflow นั้นคุ้มค่าและควรขยายไปยังงานอื่นต่อไปหรือเปล่า
 

@@ -26,10 +26,10 @@ SUPABASE_SERVICE_ROLE_KEY=...
 
 ขั้นตอนมาตรฐาน:
 1. รับ keyword หรือหัวข้อจากเจ้าของโปรเจค
-2. ใช้ subagent ตามลำดับ workflow ด้านล่าง
+2. รัน skills ตามลำดับ workflow ด้านล่าง
 3. บันทึกผลลัพธ์เป็นไฟล์ใน `content/[keyword-slug]/`
 4. รายงานให้เจ้าของโปรเจคตรวจสอบ
-5. รอคำสั่ง "อัปเดตขึ้นเว็บ" จึงจะใช้ supabase-publisher agent
+5. รอคำสั่ง "อัปเดตขึ้นเว็บ" จึงจะรัน `/publish-article`
 
 ---
 
@@ -43,6 +43,7 @@ SUPABASE_SERVICE_ROLE_KEY=...
 - **ตอบคำถามตรงๆ** — ขึ้นต้นด้วยสิ่งที่ผู้อ่านอยากรู้ ไม่ต้องอารัมภบท
 - **ใส่ตัวอย่างจริง** — ถ้าพูดถึงอะไร ให้ยกตัวอย่างที่เป็นรูปธรรม เข้าใจได้ทันที
 - **Keyword ต้องกลมกลืน** — ใส่ keyword ให้เป็นธรรมชาติ ไม่ยัดเยียดจนอ่านแปลก
+- **ห้ามใช้เครื่องหมาย `:` ในเนื้อหาบทความ** — ใช้ `—` แทนถ้าต้องการแยก เช่น `Step 1 — ทำอะไร` แทน `Step 1: ทำอะไร`, หรือขึ้นบรรทัดใหม่แทน
 
 ---
 
@@ -62,43 +63,43 @@ SUPABASE_SERVICE_ROLE_KEY=...
 | Case Study | 6 | Case Study, Blog |
 
 **Pillar Pages (เขียนก่อน — เป็น anchor สำหรับ internal linking):**
-- AI Automation คืออะไร? (Cluster: AI & Automation)
+- AI Automation คืออะไร? (Cluster: AI & Automation) ✅ อัปโหลดแล้ว
 - SEO คืออะไร? (Cluster: SEO)
 - ยิงแอด Facebook ยังไงให้ได้ผล? (Cluster: Facebook & Google Ads)
 - Digital Marketing คืออะไร? (Cluster: Digital Marketing)
 
 ---
 
-## Workflow การเขียนบทความ
+## Workflow การเขียนบทความ (ใช้ Skills)
 
 ```
 [รับ keyword จากเจ้าของโปรเจค]
         |
         v
-1. serp-analyzer
+/serp-analyze    ← วิเคราะห์ SERP, featured snippet, PAA, content gap
         |
         v
-2. content-brief-strategist  <-- ส่ง SEO requirements ให้ writer โดยตรง
+/content-brief   ← brief ครบ: meta, H2/H3, word limit, LSI, CTA, cover image text
         |
         v
-3. seo-content-writer  <-- เขียน SEO ให้ถูกตั้งแต่แรกตาม brief
+/write-article   ← เขียนตาม brief, SEO ถูกตั้งแต่แรก, ห้ามเกิน word limit
         |
         v
-4. internal-linking  <-- ใช้ site-inventory.md ประกอบ
+/link-article    ← internal links จาก site-inventory.md, แก้ draft.md โดยตรง
         |
         v
-5. cover-image-prompter  <-- สร้าง prompt รูปปก 3 เวอร์ชัน บันทึกใน frontmatter
+/cover-image     ← prompt สำหรับ nano-banana-pro พร้อม Thai text overlay
         |
         v
-[บันทึกไฟล์ใน content/[keyword-slug]/draft.md]
-[อัปเดต keywords.md สถานะเป็น "รอตรวจ"]
-[รายงานให้เจ้าของโปรเจคตรวจ พร้อม prompt รูปปก]
+[บันทึก draft.md ใน content/[keyword-slug]/]
+[อัปเดต keywords.md → "รอตรวจ"]
+[รายงานให้เจ้าของตรวจ พร้อม prompt รูปปก]
         |
         v (เมื่อได้รับคำสั่ง "อัปเดตขึ้นเว็บ")
-6. supabase-publisher
+/publish-article ← convert MD→HTML (mistune), upload Supabase, update keywords.md
         |
         v
-[อัปเดต keywords.md สถานะเป็น "อัปโหลดแล้ว (Draft)"]
+[keywords.md → "อัปโหลดแล้ว (Draft)"]
 ```
 
 **ขีดจำกัดความยาว (สำคัญมาก — ประหยัด token):**
@@ -108,25 +109,30 @@ SUPABASE_SERVICE_ROLE_KEY=...
 
 ---
 
-## Subagent ทั้ง 6 ตัวและวิธีใช้
+## Skills ทั้ง 5 ตัวและวิธีใช้
 
-### 1. serp-analyzer — วิเคราะห์ SERP
-ใช้ก่อนเขียนทุกครั้ง วิเคราะห์ว่า Google แสดงผลอะไรสำหรับ keyword นั้น ใครอยู่อันดับต้นๆ มี Featured Snippet หรือ PAA ไหม และมีช่องว่างไหนที่เราเจาะได้
+Skills อยู่ใน `.claude/commands/` — รันใน main conversation ประหยัด token กว่า subagents
 
-### 2. content-brief-strategist — วางโครงสร้างบทความ
-สร้าง brief ครบชุด: meta title, meta description, H1, โครงสร้าง H2/H3, **ระบุ word limit ชัดเจน**, LSI keywords, SEO requirements และ CTA — brief ต้องมีข้อมูล SEO ครบเพื่อให้ writer เขียนถูกตั้งแต่แรก
+### `/serp-analyze` — วิเคราะห์ SERP
+WebSearch หา top results, featured snippet, PAA boxes, search intent และ content gap สรุป 200-300 คำ
 
-### 3. seo-content-writer — เขียนบทความพร้อม SEO
-เขียนบทความภาษาไทยตาม brief เน้นให้อ่านเหมือนคนเขียน ใส่ keyword อย่างเป็นธรรมชาติ ตอบความต้องการผู้อ่านก่อนเสมอ **ห้ามเกิน word limit ที่ brief กำหนด** — writer รับผิดชอบ SEO ตั้งแต่แรก ไม่ต้องรอ SEO pass แยก
+### `/content-brief` — วางโครงสร้างบทความ
+สร้าง brief ครบชุด: meta title/description, H1, H2/H3, **word limit ชัดเจน**, LSI keywords, internal link targets, CTA และ Thai text สำหรับภาพปก
 
-### 4. internal-linking — วาง internal links
-ดูว่าบทความนี้ควรลิงก์ไปหน้าไหน และหน้าไหนควรลิงก์กลับมา ให้ใช้ `site-inventory.md` ประกอบการทำงาน
+### `/write-article` — เขียนบทความพร้อม SEO
+เขียนภาษาไทยตาม brief, SEO ถูกตั้งแต่แรก, **ห้ามเกิน word limit**, มี Featured Snippet paragraph, FAQ + JSON-LD, output เป็น Markdown พร้อม frontmatter ครบ
 
-### 5. cover-image-prompter — สร้าง prompt รูปปกบทความ
-สร้าง prompt สำหรับเจนรูปปกบทความ 3 เวอร์ชัน (Midjourney, DALL-E 3/nano-banana-pro, และแบบสั้น) พร้อม notes ภาษาไทยสำหรับนักออกแบบ ผลลัพธ์จะถูกเพิ่มใน frontmatter ของ draft.md ด้วย
+### `/link-article` — วาง internal links
+อ่าน site-inventory.md, หาจุดที่ควรลิงก์ 3-5 จุด, แก้ draft.md โดยตรง
 
-### 6. supabase-publisher — อัปโหลดขึ้น database
-ใช้เฉพาะเมื่อเจ้าของโปรเจคสั่ง "อัปเดตขึ้นเว็บ" เท่านั้น อ่านไฟล์ content ที่ผ่านการอนุมัติแล้ว แล้ว upsert ข้อมูลขึ้น Supabase (**หมายเหตุ**: ตาราง `blog_posts` ไม่มี column `status` — ห้ามส่ง field นี้)
+### `/cover-image` — สร้าง prompt รูปปก
+Prompt สำหรับ nano-banana-pro พร้อม **Thai text overlay บนภาพ** (ชื่อบทความภาษาไทย bold + English subtitle), อัปเดต frontmatter ใน draft.md
+**CI Style:** deep navy `#0A1628` + neon cyan `#00B4D8` (gradient แดง→น้ำเงินเป็น optional สำหรับ high-energy topics) — ชื่อแบรนด์ต้องเป็น Latin เสมอ (n8n, Claude, Zapier ห้ามแปลงเป็นไทย)
+
+### `/publish-article` — อัปโหลดขึ้น Supabase
+Convert MD→HTML ด้วย mistune, upload ผ่าน Supabase REST API (**ห้ามส่ง field `status`** — ไม่มีใน schema), อัปเดต keywords.md
+- ถ้ามีไฟล์ `cover.jpg/png/webp` ในโฟลเดอร์ → upload รูปไป Supabase Storage ก่อน แล้วใส่ URL ใน `cover_image`
+- บทความใหม่ใช้ POST, บทความที่มีอยู่แล้วใช้ PATCH (filter `?slug=eq.[slug]`)
 
 ---
 
@@ -134,28 +140,32 @@ SUPABASE_SERVICE_ROLE_KEY=...
 
 ```
 bestsolutions-seo/
-├── CLAUDE.md                        # ไฟล์นี้
-├── keywords.md                      # tracker ทั้ง 75 keyword + สถานะ
-├── site-inventory.md                # รายการหน้าทั้งหมด สำหรับ internal-linking
-├── best_solutions_content_calendar.csv
-├── .env                             # SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY
-├── content/                         # บทความที่เขียนเสร็จแล้ว รอตรวจ
+├── CLAUDE.md
+├── keywords.md                      # tracker 75 keyword + สถานะ
+├── site-inventory.md                # รายการหน้าทั้งหมด สำหรับ /link-article
+├── .env                             # SUPABASE credentials
+├── content/
 │   └── [keyword-slug]/
-│       ├── draft.md                 # บทความฉบับสมบูรณ์ พร้อม metadata
-│       ├── brief.md                 # content brief
-│       └── seo-report.md           # ผลการ audit
-├── published/                       # บทความที่ publish ขึ้น Supabase แล้ว
+│       └── draft.md                 # บทความ + frontmatter ครบ
+├── published/                       # บทความที่อัปโหลดแล้ว
 └── .claude/
-    └── agents/                      # subagent configs
+    ├── commands/                    # Skills (slash commands)
+    │   ├── serp-analyze.md
+    │   ├── content-brief.md
+    │   ├── write-article.md
+    │   ├── link-article.md
+    │   ├── cover-image.md
+    │   └── publish-article.md
+    └── agents/                      # Legacy (ยังใช้ได้ถ้าต้องการ isolated context)
 ```
 
-### รูปแบบ draft.md (ต้องมี frontmatter ครบ)
+### รูปแบบ draft.md (frontmatter ครบ)
 
 ```markdown
 ---
 title: "ชื่อบทความ"
 slug: "keyword-slug"
-excerpt: "ย่อเนื้อหา 1-2 ประโยค ใช้แสดงใน listing (ถ้าไม่มีจะใช้ meta_description)"
+excerpt: "ย่อเนื้อหา 1-2 ประโยค"
 primary_keyword: "keyword หลัก"
 meta_title: "meta title (max 60 chars)"
 meta_description: "meta description (max 155 chars)"
@@ -164,33 +174,21 @@ content_type: "Blog"
 search_intent: "informational"
 priority: "High"
 seo_score: 0
-tags: ["keyword หลัก", "AI & Automation", "Blog"]
+tags: ["keyword หลัก", "cluster", "content_type"]
 author_name: "Best Solutions Corp"
 cover_image_url: null
-cover_image_prompt: "prompt สั้นสำหรับเจนรูปปก (จาก cover-image-prompter)"
+cover_image_prompt: "prompt สำหรับ nano-banana-pro"
 cover_image_concept: "แนวคิดภาพปกภาษาไทย"
 status: "draft"
 ---
-
-[เนื้อหาบทความ Markdown]
 ```
 
 **Mapping frontmatter → Supabase `blog_posts`:**
 - `meta_title` → `seo_title`
 - `meta_description` → `seo_description`
-- `cluster` → `category`
+- `cluster` → `category` (ใช้ชื่อสั้น เช่น "AI", "SEO", "Ads")
 - `cover_image_url` → `cover_image`
-- อัปโหลดด้วย `status: "draft"` และ `published_at: null` เสมอ
-
----
-
-## คำถามที่ต้องถามก่อนเริ่มทุกครั้ง
-
-ก่อนเริ่ม workflow ให้ยืนยัน:
-1. **Keyword หลักคืออะไร?** — หรือดูจาก `keywords.md` ว่า keyword ไหนยัง pending อยู่
-2. **กลุ่มเป้าหมายคือใคร?** — ลูกค้า SME ไทยที่ต้องการบริการดิจิทัลมาร์เก็ตติ้ง
-3. **Content Type ไหน?** — ดูจาก `keywords.md` (Blog / Pillar Page / Landing Page / Case Study)
-4. **มี Pillar Page ของ Cluster นั้นเขียนแล้วหรือยัง?** — ถ้ายัง ให้เขียน Pillar Page ก่อน
+- ห้ามส่ง field `status` — ไม่มีใน DB schema
 
 ---
 
@@ -198,7 +196,6 @@ status: "draft"
 
 - **URL:** https://bestsolutionscorp.com/
 - **ภาษา:** ไทยทั้งหมด
-- **กลุ่มลูกค้า:** SME ไทย ธุรกิจที่ต้องการบริการ AI Automation, SEO, ยิงแอด, ทำเว็บ, โซเชียลมีเดีย, ผลิต Content
+- **กลุ่มลูกค้า:** SME ไทย ต้องการบริการ AI Automation, SEO, ยิงแอด, ทำเว็บ, โซเชียลมีเดีย, ผลิต Content
 - **เป้าหมาย:** ติดอันดับ Google ไทยสำหรับ keyword ที่เกี่ยวกับบริการของบริษัท
-
-เมื่อ agent ถามเรื่อง site URL หรือ domain ให้ใช้ `bestsolutionscorp.com` เสมอ
+- **Domain:** `bestsolutionscorp.com` เสมอ
