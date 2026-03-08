@@ -42,4 +42,4 @@ See detailed topic files linked below.
 - Always flag missing cluster articles as content opportunities in Strategist Notes
 
 ## Detailed Notes Files
-- patterns.md — recurring content structures and keyword clusters (to be created as patterns emerge)
+- patterns.md — recurring content structures and keyword clusters for AI tool definition articles, LSI clusters, CTA templates, and word budgets per section
