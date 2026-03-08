@@ -1,9 +1,9 @@
 ---
-title: "AI Automation คืออะไร? คู่มือฉบับสมบูรณ์สำหรับ SME ไทยที่อยากเริ่มต้น"
+title: "AI Automation คืออะไร? คู่มือฉบับสมบูรณ์ที่เจ้าของธุรกิจต้องรู้"
 slug: "ai-automation-คืออะไร"
 excerpt: "ทำความรู้จัก AI Automation ตั้งแต่พื้นฐาน เปรียบเทียบกับ RPA และ Workflow Automation พร้อมตัวอย่างใช้งานจริงในธุรกิจ SME ไทย เครื่องมือที่แนะนำ ราคา และขั้นตอนเริ่มต้นสำหรับคนที่ไม่มีทีม IT"
 primary_keyword: "ai automation คืออะไร"
-meta_title: "AI Automation คืออะไร? คู่มือ SME ไทยฉบับสมบูรณ์ [2026]"
+meta_title: "AI Automation คืออะไร? คู่มือฉบับสมบูรณ์ [2026]"
 meta_description: "รู้จัก AI Automation คืออะไร ตั้งแต่พื้นฐาน เปรียบต่างจาก RPA พร้อมตัวอย่าง SME ไทย เครื่องมือฟรี และขั้นตอนเริ่มต้น — อ่านคู่มือฉบับสมบูรณ์"
 cluster: "AI & Automation"
 content_type: "Pillar Page"
@@ -12,13 +12,13 @@ priority: "High"
 seo_score: 95
 tags: ["ai automation คืออะไร", "AI & Automation", "Pillar Page", "workflow automation", "RPA", "n8n", "Make.com"]
 author_name: "Best Solutions Corp"
-cover_image_url: null
-cover_image_prompt: "Horizontal gradient background from deep crimson red (#8B0000) on left to deep navy blue (#0A1628) on right, glowing circuit board pattern overlay, central glowing AI brain node connected to workflow icons (email, spreadsheet, robot arm, notification) by neon cyan light streams, large bold Thai text overlay at top reading 'AI Automation คืออะไร?' in white with neon glow, below it smaller text 'Workflow Automation for Thai SME' in cyan (#00B4D8), dramatic neon lighting, digital particles, professional tech corporate style, 16:9 ratio, high quality"
+cover_image_url: "https://eeqlpvpmjcarqbivzbrr.supabase.co/storage/v1/object/public/images/blog-covers/ai-automation-cover.webp"
+cover_image_prompt: "Deep navy blue (#0A1628) background with glowing neon cyan circuit board pattern overlay, central glowing AI brain node connected to workflow icons (email, spreadsheet, robot arm, notification) by neon cyan light streams, large bold Thai text overlay at top reading 'AI Automation คืออะไร?' in white with neon glow, below it smaller text 'The Complete Guide to Workflow Automation' in cyan (#00B4D8), dramatic neon cyan lighting, digital particles floating, keep brand names in Latin characters, professional tech corporate style, 16:9 ratio, high quality"
 cover_image_concept: "กราเดียนต์แดงเข้มไปน้ำเงิน พร้อม AI brain เชื่อมต่อ workflow icons ด้วย neon cyan และข้อความชื่อบทความภาษาไทยบนภาพ"
 status: "uploaded-draft"
 ---
 
-# AI Automation คืออะไร? คู่มือฉบับสมบูรณ์สำหรับ SME ไทยที่อยากเริ่มต้น
+# AI Automation คืออะไร? คู่มือฉบับสมบูรณ์ที่เจ้าของธุรกิจต้องรู้
 
 ถ้าคุณเป็นเจ้าของธุรกิจที่รู้สึกว่างานซ้ำๆ ในแต่ละวันกินเวลาไปมากกว่าที่ควร — ไม่ว่าจะเป็นการตอบ inbox ลูกค้า การออกใบเสร็จ หรือการส่ง follow-up อีเมล — คุณมาถูกที่แล้ว บทความนี้จะอธิบายว่า AI automation คืออะไร ทำงานอย่างไร และทำไมมันถึงเริ่มเป็นเรื่องที่ SME ไทยมองข้ามไม่ได้อีกต่อไป
 
@@ -157,9 +157,9 @@ status: "uploaded-draft"
 
 ---
 
-## วิธีเริ่มต้นใช้ AI Automation สำหรับ SME ที่ไม่มีทีม IT
+## วิธีเริ่มต้นใช้ AI Automation ถ้าไม่มีทีม IT
 
-### 4 ขั้นตอนเริ่มต้นใช้ AI Automation และข้อผิดพลาดที่ควรหลีกเลี่ยง
+### 4 ขั้นตอนเริ่มต้น และข้อผิดพลาดที่ควรหลีกเลี่ยง
 
 **Step 1 — ระบุงานที่ Automate ได้ก่อน**
 

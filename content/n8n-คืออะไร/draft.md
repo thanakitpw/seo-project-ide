@@ -3,7 +3,7 @@ title: "n8n คืออะไร? เครื่องมือ Automation ฟ
 slug: "n8n-คืออะไร"
 excerpt: "n8n คือเครื่องมือ Workflow Automation แบบ open-source ที่ SME ไทยใช้สร้างระบบอัตโนมัติได้ฟรี เชื่อมต่อแอปได้กว่า 400 ตัว รองรับ AI และยืดหยุ่นกว่า Zapier มาก"
 primary_keyword: "n8n คืออะไร"
-meta_title: "n8n คืออะไร? เครื่องมือ Automation ฟรีสำหรับ SME [2026]"
+meta_title: "n8n คืออะไร? เครื่องมือ Workflow Automation ฟรี [2026]"
 meta_description: "n8n คืออะไร ทำงานอย่างไร เปรียบเทียบกับ Zapier และ Make.com พร้อมตัวอย่างการใช้งานจริงสำหรับ SME ไทย ฟรีจริงหรือ? อ่านได้เลย"
 cluster: "AI & Automation"
 content_type: "Blog"
@@ -12,9 +12,9 @@ priority: "High"
 seo_score: 0
 tags: ["n8n คืออะไร", "AI & Automation", "Blog", "workflow automation", "n8n", "zapier", "make.com"]
 author_name: "Best Solutions Corp"
-cover_image_url: null
-cover_image_prompt: "Horizontal gradient background from deep crimson red (#8B0000) on left to deep navy blue (#0A1628) on right, glowing circuit board pattern overlay, node-based workflow diagram with n8n-style connecting nodes linking app icons (email, LINE, spreadsheet, AI brain) via neon cyan light streams, large bold Thai text overlay at top reading 'n8n คืออะไร?' in white with neon glow, below it smaller text 'Free Workflow Automation for SME' in cyan (#00B4D8), dramatic neon lighting, digital particles, professional tech corporate style, 16:9 ratio, high quality"
-cover_image_concept: "กราเดียนต์แดงเข้มไปน้ำเงิน พร้อม node workflow diagram เชื่อมแอปต่างๆ ด้วย neon cyan และข้อความชื่อบทความภาษาไทยบนภาพ"
+cover_image_url: "https://eeqlpvpmjcarqbivzbrr.supabase.co/storage/v1/object/public/images/blog-covers/n8n-cover.webp"
+cover_image_prompt: "Deep navy blue (#0A1628) background with glowing neon cyan circuit board pattern overlay, node-based workflow diagram with n8n-style connecting nodes linking app icons (email, LINE, spreadsheet, AI brain) via neon cyan light streams, large bold Thai text overlay at top reading 'n8n คืออะไร?' in white with neon glow, below it smaller text 'Open-Source Workflow Automation Tool' in cyan (#00B4D8), dramatic neon cyan lighting, digital particles floating, keep brand names in Latin characters (n8n, LINE, Zapier), professional tech corporate style, 16:9 ratio, high quality"
+cover_image_concept: "deep navy พร้อม node workflow diagram เชื่อมแอปต่างๆ ด้วย neon cyan และข้อความชื่อบทความภาษาไทยบนภาพ"
 status: "uploaded-draft"
 ---
 

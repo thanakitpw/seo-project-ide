@@ -4,15 +4,12 @@
 
 1. อ่าน `content/[slug]/draft.md` และ parse frontmatter
 
-2. **ตรวจสอบรูปปก** — ถ้ามีไฟล์ภาพใน `content/[slug]/` (เช่น `cover.jpg`, `cover.png`, `cover.webp`) ให้ upload ขึ้น Supabase Storage ก่อน:
-```bash
-source .env
-# ตรวจสอบว่ามีไฟล์ภาพไหม
-ls content/[slug]/cover.* 2>/dev/null
-```
+2. **ตรวจสอบและ convert รูปปก** — ถ้ามีไฟล์ภาพใน `content/[slug]/` ให้ convert เป็น WebP ก่อน แล้ว upload ขึ้น Supabase Storage:
 ```python
-import subprocess, os, mimetypes
+import subprocess, os
+from PIL import Image
 
+# หาไฟล์ภาพ
 cover_file = None
 for ext in ['jpg', 'jpeg', 'png', 'webp']:
     path = f'content/[slug]/cover.{ext}'
@@ -22,19 +19,25 @@ for ext in ['jpg', 'jpeg', 'png', 'webp']:
 
 cover_url = None
 if cover_file:
-    ext = cover_file.split('.')[-1]
-    mime = mimetypes.guess_type(cover_file)[0]
-    storage_path = f"blog-covers/[slug].{ext}"
-    # Upload to Supabase Storage
+    # Convert เป็น WebP (quality=85 ดี balance ระหว่างขนาดและคุณภาพ)
+    webp_path = '/tmp/cover_[slug].webp'
+    img = Image.open(cover_file)
+    img.save(webp_path, 'WEBP', quality=85)
+    print(f"Converted: {os.path.getsize(cover_file):,} → {os.path.getsize(webp_path):,} bytes")
+
+    # ใช้ชื่อไฟล์ ASCII เสมอ (ไม่ใส่ภาษาไทยใน path)
+    ascii_slug = '[ascii-slug]'  # เช่น ai-automation-cover, n8n-cover
+    storage_path = f"blog-covers/{ascii_slug}.webp"
     result = subprocess.run([
         'curl', '-s', '-X', 'POST',
-        f'{os.environ["NEXT_PUBLIC_SUPABASE_URL"]}/storage/v1/object/public/{storage_path}',
+        f'{os.environ["NEXT_PUBLIC_SUPABASE_URL"]}/storage/v1/object/images/{storage_path}',
         '-H', f'apikey: {os.environ["SUPABASE_SERVICE_ROLE_KEY"]}',
         '-H', f'Authorization: Bearer {os.environ["SUPABASE_SERVICE_ROLE_KEY"]}',
-        '-H', f'Content-Type: {mime}',
-        '--data-binary', f'@{cover_file}'
+        '-H', 'Content-Type: image/webp',
+        '--data-binary', f'@{webp_path}'
     ], capture_output=True, text=True)
-    cover_url = f'{os.environ["NEXT_PUBLIC_SUPABASE_URL"]}/storage/v1/object/public/{storage_path}'
+    cover_url = f'{os.environ["NEXT_PUBLIC_SUPABASE_URL"]}/storage/v1/object/public/images/{storage_path}'
+    print("Cover URL:", cover_url)
 ```
 
 3. Convert Markdown body → HTML ด้วย Python + mistune:
@@ -99,4 +102,9 @@ curl -s -X PATCH \
 - ไม่มี column `status` ในตาราง — ห้ามส่ง field นี้เด็ดขาด
 - category ของ AI cluster ใช้ `"AI"` (ไม่ใช่ `"AI & Automation"`)
 - ใช้ Python เพื่อ encode JSON เสมอ ไม่ inline ใน curl
-- Supabase Storage bucket: `public` — path pattern: `blog-covers/[slug].[ext]`
+- Supabase Storage bucket: `images` (ยืนยันแล้ว — ไม่ใช่ `public`)
+- Upload endpoint: `/storage/v1/object/images/blog-covers/[ascii-slug].webp`
+- Public URL pattern: `/storage/v1/object/public/images/blog-covers/[ascii-slug].webp`
+- ชื่อไฟล์ใน Storage ต้องเป็น ASCII เสมอ — ห้ามใช้ภาษาไทยใน path เช่น `ai-automation-cover.webp`, `n8n-cover.webp`
+- ต้องติดตั้ง Pillow: `pip3 install Pillow` (ถ้ายังไม่มี)
+- WebP quality=85 — ลดขนาดได้ ~60-80% จาก JPG/PNG โดยคุณภาพยังดี
